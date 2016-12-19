@@ -20,6 +20,13 @@
 
 // -------------------------------------------------
 // Host
+//
+// Since Host and Visitor refer to one another, we
+// have to define things in a particular order.
+//  - First forward declare the empty class Visitor
+//  - Then declare Host, including all methods
+//  - Then define Visitor
+//  - Then define Host.
 class Visitor;
 
 class Host {
@@ -58,7 +65,7 @@ class Visitor {
     virtual void VisitHost(Host2& host) {
         ::std::cout << "Base visitor visiting Host2" << ::std::endl;
     }
-    virtual void VisitHost(Host3& host) { 
+    virtual void VisitHost(Host3& host) {
         ::std::cout << "Base visitor visiting Host3" << ::std::endl;
     }
 };
@@ -116,9 +123,13 @@ int main(int argc, char* argv[]) {
     Visitor* visitors[] = { new Visitor1(), new Visitor2(), new Visitor3() };
     for (Host* host : hosts) {
         for (Visitor* visitor : visitors) {
-            //visitor->VisitHost(*host);
+            // Doesn't work to tell the visitor to visit the host,
+            // you have to start with the hosts.
+            //
+            // visitor->VisitHost(*host);
             host->AcceptVisitor(*visitor);
         }
     }
     return 0;
 }
+
