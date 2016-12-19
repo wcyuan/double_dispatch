@@ -119,6 +119,7 @@ class Visitor3 : public Visitor {
 
 // -------------------------------------------------
 int main(int argc, char* argv[]) {
+    // These are leaky, but ignore that for this tiny demo
     Host* hosts[] = { new Host1(), new Host2(), new Host3() };
     Visitor* visitors[] = { new Visitor1(), new Visitor2(), new Visitor3() };
     for (Host* host : hosts) {
